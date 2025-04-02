@@ -1,19 +1,10 @@
 function SubstitutionCipher(abc1, abc2) {
-    this.encode = function (str) {
-        const result = [];
-        for(const letter of str) {
-            (abc1.includes(letter)) ? result.push(abc2[abc1.indexOf(letter)]) : result.push(letter);
-       }
-       return result.join('');
-    }
-    this.decode = function (str) {
-        const result = [];
-        for(const letter of str) {
-            (abc2.includes(letter)) ? result.push(abc1[abc2.indexOf(letter)]) : result.push(letter);
-       }
-       return result.join('');
-    }
-  }
+    const encodeMap = new Map([...abc1].map((char, i) => [char, abc2[i]]));
+    const decodeMap = new Map([...abc2].map((char, i) => [char, abc1[i]]));
+    
+    this.encode = str => [...str].map(char => encodeMap.get(char) || char).join('');
+    this.decode = str => [...str].map(char => decodeMap.get(char) || char).join('');
+}
 
 var abc1 = "abcdefghijklmnopqrstuvwxyz";
 var abc2 = "etaoinshrdlucmfwypvbgkjqxz";
@@ -22,11 +13,3 @@ var sub = new SubstitutionCipher(abc1, abc2);
 
 console.log(sub.encode("abc"));
 console.log(sub.decode("eta"));
-
-// sub.encode("abc") // => "eta"
-// sub.encode("xyz") // => "qxz"
-// sub.encode("aeiou") // => "eirfg"
-   
-// sub.decode("eta") // => "abc"
-// sub.decode("qxz") // => "xyz"
-// sub.decode("eirfg") // => "aeiou"
