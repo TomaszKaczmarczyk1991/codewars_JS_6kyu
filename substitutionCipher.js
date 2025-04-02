@@ -2,16 +2,14 @@ function SubstitutionCipher(abc1, abc2) {
     this.encode = function (str) {
         const result = [];
         for(const letter of str) {
-            if(!abc1.includes(letter)) result.push(letter);
-            if(abc1.includes(letter)) result.push(abc2[abc1.indexOf(letter)]);
+            (abc1.includes(letter)) ? result.push(abc2[abc1.indexOf(letter)]) : result.push(letter);
        }
        return result.join('');
     }
     this.decode = function (str) {
         const result = [];
         for(const letter of str) {
-            if(!abc2.includes(letter)) result.push(letter);
-            if(abc2.includes(letter)) result.push(abc1[abc2.indexOf(letter)]);
+            (abc2.includes(letter)) ? result.push(abc1[abc2.indexOf(letter)]) : result.push(letter);
        }
        return result.join('');
     }
