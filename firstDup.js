@@ -1,0 +1,3 @@
+function firstDup (s) {
+   
+  }
